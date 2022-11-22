@@ -1,18 +1,5 @@
-/* Copyright 2022 Thomas Baart <thomas@splitkb.com>
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 2 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright 2022 Ignacy Radliński (@radlinskii)
+// SPDX-License-Identifier: GPL-2.0-or-later
 
 #pragma once
 
@@ -38,9 +25,6 @@
 #undef RGBLIGHT_EFFECT_ALTERNATING // blinking
 #undef RGBLIGHT_EFFECT_TWINKLE // randomly fading in and out single keys
 
-// #define USE_I2C
-// #define EE_HANDS
-
 #define TAPPING_TOGGLE 1 // tap just once for TT() to toggle the layer
 #define TAPPING_TERM 200
 #define IGNORE_MOD_TAP_INTERRUPT
@@ -55,11 +39,10 @@
 #define SPLIT_LED_STATE_ENABLE
 
 #ifdef OLED_DRIVER_ENABLE
-  #define OLED_DISPLAY_128X64
-  #define OLED_TIMEOUT 300000
+    #define OLED_DISPLAY_128X64
+    #define OLED_FONT_END 127
 #endif
 
 #define NO_ACTION_MACRO
 #define NO_ACTION_FUNCTION
 #define NO_ACTION_ONESHOT
-#define OLED_FONT_END 127
