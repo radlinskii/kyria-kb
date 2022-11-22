@@ -142,8 +142,7 @@ void render_animation(void) {
         }
     };
 
-    void animation_phase(void) {
-
+    void render_frame(void) {
         oled_set_cursor(0, 0);
         current_frame = (current_frame + 1) % FRAMES_COUNT;
         oled_write_raw_P(frames[abs((FRAMES_COUNT-1)-current_frame)], FRAME_SIZE);
@@ -159,7 +158,7 @@ void render_animation(void) {
         oled_on();
         if(timer_elapsed32(anim_timer) > FRAME_DURATION) {
             anim_timer = timer_read32();
-            animation_phase();
+            render_frame();
         }
         anim_sleep = timer_read32();
     }
