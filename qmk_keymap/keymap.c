@@ -1,75 +1,11 @@
 // Copyright 2022 Ignacy Radliński (@radlinskii)
 // SPDX-License-Identifier: GPL-2.0-or-later
 
-#include <stdio.h>
-
 #include QMK_KEYBOARD_H
 #include "light_layers.h"
-#include "oled_animation.h"
-
-char wpm_str[14];
-
-enum my_layers {
-    _COLEMAK,
-    _QWERTY,
-    _NUM,
-    _SYM,
-    _NAV,
-    _MOUSE,
-    _MEDIA_FN,
-};
-
-enum custom_keycodes {
-    COLEMAK = SAFE_RANGE,
-    QWERTY
-};
-
-// COLEMAK
-#define LALT_KA LALT_T(KC_A)
-#define LCTL_KR LCTL_T(KC_R)
-#define LGUI_KS LGUI_T(KC_S)
-#define LSFT_KT LSFT_T(KC_T)
-#define RSFT_KN RSFT_T(KC_N)
-#define RGUI_KE RGUI_T(KC_E)
-#define RCTL_KI RCTL_T(KC_I)
-#define RALT_KO RALT_T(KC_O)
-
-// QWERTY
-// #define LALT_KA LALT_T(KC_A)
-#define LCTL_KS LCTL_T(KC_S)
-#define LGUI_KD LGUI_T(KC_D)
-#define LSFT_KF LSFT_T(KC_F)
-#define RSFT_KJ RSFT_T(KC_J)
-#define RGUI_KK RGUI_T(KC_K)
-#define RCTL_KL RCTL_T(KC_L)
-#define RA_SCLN RALT_T(KC_SCLN)
-
-// NUM
-#define LALT_K1 LALT_T(KC_1)
-#define LCTL_K2 LCTL_T(KC_2)
-#define LGUI_K3 LGUI_T(KC_3)
-#define LSFT_K4 LSFT_T(KC_4)
-#define RSFT_K7 RSFT_T(KC_7)
-#define RGUI_K8 RGUI_T(KC_8)
-#define RCTL_K9 RCTL_T(KC_9)
-#define RALT_K0 RALT_T(KC_0)
-
-// SYM
-#define LGU_GRV LGUI_T(KC_GRV)
-#define LSF_QT LSFT_T(KC_QUOT)
-#define RSF_MIN RSFT_T(KC_MINS)
-#define RGU_EQL RGUI_T(KC_EQL)
-
-// MISC
-#define KC_CAPW LGUI(LSFT(KC_3)) // capture the whole screen on MacOS
-#define KC_CAPP LGUI(LSFT(KC_5)) // capture portion of the screen on MacOS
-
-// LAYERS
-#define MO_SYM MO(_SYM)
-#define MO_NAV MO(_NAV)
-#define MS_ENT LT(_MOUSE, KC_ENT)
-#define NUM_SPC LT(_NUM, KC_SPC)
-#define MF_TAB LT(_MEDIA_FN, KC_TAB)
+#include "oled.h"
+#include "layer_names.h"
+#include "keycodes.h"
 
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -139,7 +75,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     //├────────┼────────┼────────┼────────┼────────┼────────┤                                                     ├────────┼────────┼────────┼────────┼────────┼────────┤
         XXXXXXX, KC_LALT, KC_LCTL, KC_LGUI, KC_LSFT, _______,                                                       KC_WH_R, KC_MS_L, KC_MS_D, KC_MS_R, KC_WH_L, XXXXXXX,
     //├────────┼────────┼────────┼────────┼────────┼────────┼────────┬────────┐                 ┌────────┬────────┼────────┼────────┼────────┼────────┼────────┼────────┤
-        XXXXXXX, _______, _______, _______, _______, _______,   RESET, _______,                   _______, _______, _______, _______, _______, _______, _______, XXXXXXX,
+        XXXXXXX, _______, _______, _______, _______, _______,   RESET, _______,                   _______,   RESET, _______, _______, _______, _______, _______, XXXXXXX,
     //└────────┴────────┴────────┼────────┼────────┼────────┼────────┼────────┤                 ├────────┼────────┼────────┼────────┼────────┼────────┴────────┴────────┘
                                    _______, _______, _______, _______, _______,                   _______, KC_BTN1, KC_BTN2, KC_BTN3, _______
     //                           └────────┴────────┴────────┴────────┴────────┘                 └────────┴────────┴────────┴────────┴────────┘
@@ -151,22 +87,25 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     //├────────┼────────┼────────┼────────┼────────┼────────┤                                                     ├────────┼────────┼────────┼────────┼────────┼────────┤
         XXXXXXX,   KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,                                                         KC_F6,   KC_F7,   KC_F8,   KC_F9,  KC_F10, XXXXXXX,
     //├────────┼────────┼────────┼────────┼────────┼────────┼────────┬────────┐                 ┌────────┬────────┼────────┼────────┼────────┼────────┼────────┼────────┤
-        XXXXXXX, KC_MUTE, KC_MPRV, KC_VOLD, KC_BRID, _______,   RESET, QWERTY,                   COLEMAK,   RESET,  _______, _______, _______, _______, _______, XXXXXXX,
+        XXXXXXX, KC_MUTE, KC_MPRV, KC_VOLD, KC_BRID, _______,   RESET,K_QWERTY,                 K_COLEMAK,  RESET,  _______, _______, _______, _______, _______, XXXXXXX,
     //└────────┴────────┴────────┼────────┼────────┼────────┼────────┼────────┤                 ├────────┼────────┼────────┼────────┼────────┼────────┴────────┴────────┘
                                    _______, _______, _______, _______, _______,                  _______, _______, _______, _______, _______
     //                           └────────┴────────┴────────┴────────┴────────┘                 └────────┴────────┴────────┴────────┴────────┘
     )
 };
 
+
+// switching default layer between COLEMAK and QWERTY
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
-        case COLEMAK:
+        case K_COLEMAK:
             if (record->event.pressed) {
                 set_single_persistent_default_layer(_COLEMAK);
                 layer_move(_COLEMAK);
             }
             return false;
-        case QWERTY:
+        case K_QWERTY:
             if (record->event.pressed) {
                 set_single_persistent_default_layer(_QWERTY);
                 layer_move(_QWERTY);
@@ -176,6 +115,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     return true;
 }
 
+
+// RGB light layers
 
 void keyboard_post_init_user(void) {
     rgblight_layers = MY_LIGHT_LAYERS;
@@ -198,47 +139,11 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     return state;
 }
 
+
+// OLED display manipulation
+
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
 	return OLED_ROTATION_180;
-}
-
-void render_status(void) {
-    oled_write_P(PSTR(" Layer: "), false);
-
-    switch (get_highest_layer(layer_state|default_layer_state)) {
-        case _COLEMAK:
-            oled_write_P(PSTR("COLEMAK\n\n"), false);
-            break;
-        case _QWERTY:
-            oled_write_P(PSTR("QWERTY\n\n"), false);
-            break;
-        case _NUM:
-            oled_write_P(PSTR("NUM\n\n"), false);
-            break;
-        case _SYM:
-            oled_write_P(PSTR("SYM\n\n"), false);
-            break;
-        case _NAV:
-            oled_write_P(PSTR("NAV\n\n"), false);
-            break;
-        case _MOUSE:
-            oled_write_P(PSTR("MOUSE\n\n"), false);
-            break;
-        case _MEDIA_FN:
-            oled_write_P(PSTR("MEDIA / FN\n\n"), false);
-            break;
-        default:
-            oled_write_P(PSTR("UNDEFINED\n\n"), false);
-    }
-
-    sprintf(wpm_str, "   WPM: %03d\n\n", get_current_wpm());
-    oled_write(wpm_str, false);
-
-    led_t led_usb_state = host_keyboard_led_state();
-    oled_write_P(led_usb_state.caps_lock   ? PSTR("      * CAPSLOCK \n\n") : PSTR("                 \n\n"), false);
-
-    oled_set_cursor(0, 7);
-    oled_write_P(PSTR("        Kyria rev2.1\n"), false);
 }
 
 bool oled_task_user(void) {

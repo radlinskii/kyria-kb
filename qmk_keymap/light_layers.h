@@ -1,8 +1,6 @@
 // Copyright 2022 Ignacy Radliński (@radlinskii)
 // SPDX-License-Identifier: GPL-2.0-or-later
 
-#pragma once
-
 const rgblight_segment_t PROGMEM COLEMAK_LIGHT_LAYER[] = RGBLIGHT_LAYER_SEGMENTS(
     {0, 19, 100, 255, 255}
 );

@@ -1,3 +1,7 @@
+#include <stdio.h>
+
+#include "layer_names.h"
+
 #define FRAMES_COUNT 2
 #define FRAME_DURATION 350
 #define FRAME_SIZE 1024
@@ -5,6 +9,8 @@
 uint32_t anim_timer = 0;
 uint32_t anim_sleep = 0;
 uint8_t current_frame = 0;
+
+char wpm_str[14];
 
 void render_animation(void) {
     static const char PROGMEM frames[FRAMES_COUNT][FRAME_SIZE] = {
@@ -162,4 +168,43 @@ void render_animation(void) {
         }
         anim_sleep = timer_read32();
     }
+}
+
+void render_status(void) {
+    oled_write_P(PSTR(" Layer: "), false);
+
+    switch (get_highest_layer(layer_state|default_layer_state)) {
+        case _COLEMAK:
+            oled_write_P(PSTR("COLEMAK\n\n"), false);
+            break;
+        case _QWERTY:
+            oled_write_P(PSTR("QWERTY\n\n"), false);
+            break;
+        case _NUM:
+            oled_write_P(PSTR("NUM\n\n"), false);
+            break;
+        case _SYM:
+            oled_write_P(PSTR("SYM\n\n"), false);
+            break;
+        case _NAV:
+            oled_write_P(PSTR("NAV\n\n"), false);
+            break;
+        case _MOUSE:
+            oled_write_P(PSTR("MOUSE\n\n"), false);
+            break;
+        case _MEDIA_FN:
+            oled_write_P(PSTR("MEDIA / FN\n\n"), false);
+            break;
+        default:
+            oled_write_P(PSTR("UNDEFINED\n\n"), false);
+    }
+
+    sprintf(wpm_str, "   WPM: %03d\n\n", get_current_wpm());
+    oled_write(wpm_str, false);
+
+    led_t led_usb_state = host_keyboard_led_state();
+    oled_write_P(led_usb_state.caps_lock   ? PSTR("      * CAPSLOCK \n\n") : PSTR("                 \n\n"), false);
+
+    oled_set_cursor(0, 7);
+    oled_write_P(PSTR("        Kyria rev2.1\n"), false);
 }
