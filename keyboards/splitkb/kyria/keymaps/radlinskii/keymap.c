@@ -112,7 +112,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     //├────────┼────────┼────────┼────────┼────────┼────────┤                                                     ├────────┼────────┼────────┼────────┼────────┼────────┤
         XXXXXXX, _______, _______, _______, _______, _______,                                                       KC_WH_R, KC_MS_L, KC_MS_D, KC_MS_R, KC_WH_L, XXXXXXX,
     //├────────┼────────┼────────┼────────┼────────┼────────┼────────┬────────┐                 ┌────────┬────────┼────────┼────────┼────────┼────────┼────────┼────────┤
-        XXXXXXX, _______, _______, _______, _______, _______, _______, _______,                   _______, _______, _______, _______, _______, _______, _______, XXXXXXX,
+        XXXXXXX, _______, _______, _______, _______, _______,   RESET, _______,                   _______, _______, _______, _______, _______, _______, _______, XXXXXXX,
     //└────────┴────────┴────────┼────────┼────────┼────────┼────────┼────────┤                 ├────────┼────────┼────────┼────────┼────────┼────────┴────────┴────────┘
                                    _______, _______, _______, _______, _______,                   _______, KC_BTN1, _______, KC_BTN2, _______
     //                           └────────┴────────┴────────┴────────┴────────┘                 └────────┴────────┴────────┴────────┴────────┘
@@ -174,41 +174,45 @@ oled_rotation_t oled_init_user(oled_rotation_t rotation) {
 	return OLED_ROTATION_180;
 }
 
+void render_status(void) {
+    oled_write_P(PSTR(" Layer: "), false);
+
+    switch (get_highest_layer(layer_state|default_layer_state)) {
+        case _COLEMAK:
+            oled_write_P(PSTR("COLEMAK\n\n"), false);
+            break;
+        case _QWERTY:
+            oled_write_P(PSTR("QWERTY\n\n"), false);
+            break;
+        case _NUM_SYM:
+            oled_write_P(PSTR("NUM / SYM\n\n"), false);
+            break;
+        case _NAV:
+            oled_write_P(PSTR("NAV\n\n"), false);
+            break;
+        case _MOUSE:
+            oled_write_P(PSTR("MOUSE\n\n"), false);
+            break;
+        case _MEDIA_FN:
+            oled_write_P(PSTR("MEDIA / FN\n\n"), false);
+            break;
+        default:
+            oled_write_P(PSTR("UNDEFINED\n\n"), false);
+    }
+
+    sprintf(wpm_str, "   WPM: %03d\n\n", get_current_wpm());
+    oled_write(wpm_str, false);
+
+    led_t led_usb_state = host_keyboard_led_state();
+    oled_write_P(led_usb_state.caps_lock   ? PSTR("      * CAPSLOCK \n\n") : PSTR("                 \n\n"), false);
+
+    oled_set_cursor(0, 7);
+    oled_write_P(PSTR("        Kyria rev2.1\n"), false);
+}
+
 bool oled_task_user(void) {
     if (is_keyboard_left()) {
-        oled_write_P(PSTR(" Layer: "), false);
-
-        switch (get_highest_layer(layer_state|default_layer_state)) {
-            case _COLEMAK:
-                oled_write_P(PSTR("COLEMAK\n\n"), false);
-                break;
-            case _QWERTY:
-                oled_write_P(PSTR("QWERTY\n\n"), false);
-                break;
-            case _NUM_SYM:
-                oled_write_P(PSTR("NUM / SYM\n\n"), false);
-                break;
-            case _NAV:
-                oled_write_P(PSTR("NAV\n\n"), false);
-                break;
-            case _MOUSE:
-                oled_write_P(PSTR("MOUSE\n\n"), false);
-                break;
-            case _MEDIA_FN:
-                oled_write_P(PSTR("MEDIA / FN\n\n"), false);
-                break;
-            default:
-                oled_write_P(PSTR("UNDEFINED\n\n"), false);
-        }
-
-        sprintf(wpm_str, "   WPM: %03d\n\n", get_current_wpm());
-        oled_write(wpm_str, false);
-
-        led_t led_usb_state = host_keyboard_led_state();
-        oled_write_P(led_usb_state.caps_lock   ? PSTR("      * CAPSLOCK \n\n") : PSTR("                 \n\n"), false);
-
-        oled_set_cursor(0, 7);
-        oled_write_P(PSTR("        Kyria rev2.1\n"), false);
+        render_status();
     } else {
         render_animation();
     };
