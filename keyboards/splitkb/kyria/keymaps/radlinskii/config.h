@@ -16,14 +16,7 @@
 
 #pragma once
 
-#ifdef RGBLIGHT_ENABLE
-#    define RGBLIGHT_ANIMATIONS
-#    define RGBLIGHT_HUE_STEP  8
-#    define RGBLIGHT_SAT_STEP  8
-#    define RGBLIGHT_VAL_STEP  8
-#    define RGBLIGHT_LIMIT_VAL 150
-
-#define RGBLIGHT_LAYERS
+#define RGBLIGHT_LIMIT_VAL 150
 
 #define RGBLIGHT_DEFAULT_HUE 100
 #define RGBLIGHT_DEFAULT_SAT 255
@@ -42,8 +35,6 @@
 #undef RGBLIGHT_EFFECT_RGB_TEST // red -> green -> blue
 #undef RGBLIGHT_EFFECT_ALTERNATING // blinking
 #undef RGBLIGHT_EFFECT_TWINKLE // randomly fading in and out single keys
-
-#endif
 
 // #define USE_I2C
 // #define EE_HANDS
