@@ -169,50 +169,58 @@ bool oled_task_user(void) {
     if (is_keyboard_left()) {
         switch (get_highest_layer(layer_state|default_layer_state)) {
             case _COLEMAK:
-                oled_write_P(PSTR("Q W F P B    COLEMAK\n\nA R S T G\n\nZ X C D V   DEL ___\n\n___ BSP NUM ENT ___\n\n"), false);
+                oled_write_P(PSTR(" Q   W   F   P   B \n\n A   R   S   T   G \n\n Z   X   C   D   V \n\n              DEL ___  ___ BSP NUM ENT ___"), false);
                 break;
             case _QWERTY:
-                oled_write_P(PSTR("Q W E R T     QWERTY\n\nA S D F G\n\nZ X C V B   DEL ___\n\n___ BSP NUM ENT ___\n\n"), false);
+                oled_write_P(PSTR(" Q   W   E   R   T \n\n A   S   D   F   G \n\n Z   X   C   V   B \n\n              DEL ___  ___ BSP NUM ENT ___"), false);
                 break;
             case _NUM_SYM:
-                oled_write_P(PSTR("! @ # $ %    NUM/SYM\n\n1 2 3 4 5\n\n' ` ( { [   DEL ___\n\n___ BSP DEF ENT ___\n\n"), false);
+                oled_write_P(PSTR(" !   @   #   $   % \n\n 1   2   3   4   5 \n\n '   `   (   {   [ \n\n              DEL ___  ___ BSP DEF ENT ___"), false);
                 break;
             case _NAV:
-                oled_write_P(PSTR("_ _ _ _ _        NAV\n\n_ _ _ _ _\n\n_ _ _ _ _   DEL ___\n\n___ BSP DEF ENT ___\n\n"), false);
+                oled_write_P(PSTR(" _   _   _   _   _ \n\n _   _   _   _   _ \n\n _   _   _   _   _ \n\n              DEL ___  ___ BSP DEF ENT ___"), false);
                 break;
             case _MOUSE:
-                oled_write_P(PSTR("_ _ _ _ _      MOUSE\n\n_ _ _ _ _\n\n_ _ _ _ _   DEL ___\n\n___ BSP DEF BT2 ___\n\n"), false);
+                oled_write_P(PSTR(" _   _   _   _   _ \n\n _   _   _   _   _ \n\n _   _   _   _   _ \n\n              DEL ___  ___ BSP DEF ENT ___"), false);
                 break;
             case _MEDIA_MISC:
-                oled_write_P(PSTR(" _   _  MUT  _  QWE\n\nPLY NXT VLU BRU  _\n\nSTP PRV VLD BRD  _  \n\n              DEL ___  ___ BSP DEF ENT ___"), false);
+                oled_write_P(PSTR(" _   _  MUT  _  QWE\n\nPLY NXT VLU BRU  _ \n\nSTP PRV VLD BRD  _ \n\n              DEL ___  ___ BSP DEF ENT ___"), false);
                 break;
             default:
                 oled_write_P(PSTR("UNDEFINED LAYER\n\n"), false);
         }
 
+        // Host Keyboard LED Status
+        led_t led_state = host_keyboard_led_state();
+        oled_write_P(led_state.caps_lock ? PSTR("*") : PSTR(" "), false);
+
     } else {
         switch (get_highest_layer(layer_state|default_layer_state)) {
             case _COLEMAK:
-                oled_write_P(PSTR("COLEMAK    J L U Y ;\n\n           M N E I O\n\n ___ ESC   K H , . /\n\n ___ SPC NAV TAB BSL\n\n"), false);
+                oled_write_P(PSTR(" J   L   U   Y   ; \n\n M   N   E   I   O \n\n K   H   ,   .   / \n\n___ ESC              ___ SPC NAV TAB BSL\n"), false);
                 break;
             case _QWERTY:
-                oled_write_P(PSTR("QWERTY     Y U I O P\n\n           H J K L ;\n\n ___ ESC   N M , . /\n\n ___ SPC NAV TAB BSL\n\n"), false);
+                oled_write_P(PSTR(" Y   U   I   O   P \n\n H   J   K   L   ; \n\n N   M   ,   .   / \n\n___ ESC              ___ SPC NAV TAB BSL\n"), false);
                 break;
             case _NUM_SYM:
-                oled_write_P(PSTR("NUM/SYM    ^ & * _ +\n\n           6 7 8 9 0\n\n ___ ESC   ] } ) - =\n\n ___ SPC NAV TAB BSL\n\n"), false);
+                oled_write_P(PSTR(" ^   &   *   _   + \n\n 6   7   8   9   0 \n\n ]   }   )   -   = \n\n___ ESC              ___ SPC NAV TAB BSL\n"), false);
                 break;
             case _NAV:
-                oled_write_P(PSTR(" _  PGU ARP PGD  _\n\nHME ARL ARD ARR END\n\n _   _   _   _   _ \n\n___ ESC              ___ SPC MSE TAB BSL\n"), false);
+                oled_write_P(PSTR(" _  PGU ARP PGD  _ \n\nHME ARL ARD ARR END\n\n _   _   _   _   _ \n\n___ ESC              ___ SPC MSE TAB BSL\n"), false);
                 break;
             case _MOUSE:
-                oled_write_P(PSTR(" _  SCU MVU SCD  _\n\nSCL MVL MVD MVR SCR\n\n _   _   _   _   _ \n\n___ ESC              ___ SPC NAV TAB BSL\n"), false);
+                oled_write_P(PSTR(" _  SCU MVU SCD  _ \n\nSCL MVL MVD MVR SCR\n\n _   _   _   _   _ \n\n___ ESC              ___ SPC NAV TAB BSL\n"), false);
                 break;
             case _MEDIA_MISC:
-                oled_write_P(PSTR("COL  _   _   _   _\n\nTOG SAI HUI VAI MOD\n\n _  SAD HUD VAD RMD\n\n___ ESC              ___ SPC DEF TAB BSL\n"), false);
+                oled_write_P(PSTR("COL  _   _   _   _ \n\nTOG SAI HUI VAI MOD\n\n _  SAD HUD VAD RMD\n\n___ ESC              ___ SPC DEF TAB BSL\n"), false);
                 break;
             default:
                 oled_write_P(PSTR("UNDEFINED LAYER\n\n"), false);
         }
+
+        // Host Keyboard LED Status
+        led_t led_state = host_keyboard_led_state();
+        oled_write_P(led_state.caps_lock ? PSTR("*") : PSTR(" "), false);
     };
 
     return false;
