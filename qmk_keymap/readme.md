@@ -12,3 +12,8 @@ This folder contains files used by [QMK](https://qmk.fm) to create a firmware fo
     -   showing current WPM (words per minute)
     -   animation
 -   Switching default persistent layer between Colemak and QWERTY
+
+
+### OLED preview:
+
+![OLED animation](https://user-images.githubusercontent.com/26116041/203966621-2839a459-54ec-4aee-aeb4-c2e3a0b7b3e7.gif)
