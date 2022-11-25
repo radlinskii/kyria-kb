@@ -8,6 +8,6 @@ In `3d_models` directory I shared files (stls, and fusion360) used to 3D print c
 
 In `images` folder you can find previews of the 3D models, pictures I created to use in OLED animation, and images of the keyboard.
 
-Preview:
+### Preview:
 
-![/images/keyboard_in_progress.jpeg](/images/keyboard_in_progress.jpeg)
+![keyboard preview](/images/keyboard_finished.jpg)
