@@ -45,6 +45,8 @@ enum custom_keycodes {
 // MISC
 #define KC_CAPW LGUI(LSFT(KC_3)) // capture the whole screen on MacOS
 #define KC_CAPP LGUI(LSFT(KC_5)) // capture portion of the screen on MacOS
+#define GUI_DWN LGUI(KC_DOWN) // jump to the bottom of the document
+#define GUI_UP LGUI(KC_UP) // jump to the top of the document
 
 // LAYERS
 #define MO_SYM MO(_SYM)
