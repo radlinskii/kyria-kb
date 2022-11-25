@@ -10,4 +10,4 @@ In `images` folder you can find previews of the 3D models, pictures I created to
 
 ### Preview:
 
-![keyboard preview](/images/keyboard_finished.jpg)
+![keyboard preview](/images/keyboard_finished.jpeg)
