@@ -2,12 +2,12 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 #include QMK_KEYBOARD_H
+#include "keycodes.h"
+#include "layer_names.h"
 #include "light_layers.h"
 #include "oled.h"
-#include "layer_names.h"
-#include "keycodes.h"
 
-
+// clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_COLEMAK] = LAYOUT(
     //┌────────┬────────┬────────┬────────┬────────┬────────┐                                                     ┌────────┬────────┬────────┬────────┬────────┬────────┐
@@ -17,7 +17,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     //├────────┼────────┼────────┼────────┼────────┼────────┼────────┬────────┐                 ┌────────┬────────┼────────┼────────┼────────┼────────┼────────┼────────┤
         XXXXXXX,    KC_Z,    KC_X,    KC_C,    KC_D,    KC_V, XXXXXXX, KC_CAPS,                   KC_CAPW, KC_CAPP,    KC_K,    KC_H, KC_COMM,  KC_DOT, KC_SLSH, XXXXXXX,
     //└────────┴────────┴────────┼────────┼────────┼────────┼────────┼────────┤                 ├────────┼────────┼────────┼────────┼────────┼────────┴────────┴────────┘
-                                   XXXXXXX, KC_BSPC,  MO_NAV,  MS_ENT,  KC_DEL,                    KC_ESC, NUM_SPC,  MO_SYM,  MF_TAB, XXXXXXX
+                                   XXXXXXX, KC_BSPC,  MO_NAV,  MS_ENT,  KC_DEL,                    KC_ESC,  KC_SPC,  MO_SYM, NUM_TAB, XXXXXXX
     //                           └────────┴────────┴────────┴────────┴────────┘                 └────────┴────────┴────────┴────────┴────────┘
     ),
 
@@ -29,7 +29,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     //├────────┼────────┼────────┼────────┼────────┼────────┼────────┬────────┐                 ┌────────┬────────┼────────┼────────┼────────┼────────┼────────┼────────┤
         XXXXXXX,    KC_Z,    KC_X,    KC_C,    KC_V,    KC_B, XXXXXXX, KC_CAPS,                   KC_CAPW, KC_CAPP,    KC_N,    KC_M, KC_COMM,  KC_DOT, KC_SLSH, XXXXXXX,
     //└────────┴────────┴────────┼────────┼────────┼────────┼────────┼────────┤                 ├────────┼────────┼────────┼────────┼────────┼────────┴────────┴────────┘
-                                   XXXXXXX, KC_BSPC,  MO_NAV,  MS_ENT,  KC_DEL,                    KC_ESC, NUM_SPC,  MO_SYM,  MF_TAB, XXXXXXX
+                                   XXXXXXX, KC_BSPC,  MO_NAV,  MS_ENT,  KC_DEL,                    KC_ESC,  KC_SPC,  MO_SYM, NUM_TAB, XXXXXXX
     //                           └────────┴────────┴────────┴────────┴────────┘                 └────────┴────────┴────────┴────────┴────────┘
     ),
 
@@ -39,7 +39,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     //├────────┼────────┼────────┼────────┼────────┼────────┤                                                     ├────────┼────────┼────────┼────────┼────────┼────────┤
         XXXXXXX,  KC_DOT,    KC_3,    KC_2,    KC_1,    KC_0,                                                       _______, KC_RSFT, KC_RGUI, KC_RCTL, KC_RALT, XXXXXXX,
     //├────────┼────────┼────────┼────────┼────────┼────────┼────────┬────────┐                 ┌────────┬────────┼────────┼────────┼────────┼────────┼────────┼────────┤
-        XXXXXXX, KC_COMM,    KC_9,    KC_8,    KC_7, _______,   RESET, _______,                   _______,   RESET, _______, _______, _______, _______, _______, XXXXXXX,
+        XXXXXXX, KC_COMM,    KC_9,    KC_8,    KC_7, _______, QK_BOOT, _______,                   _______, QK_BOOT, _______, _______, _______, _______, _______, XXXXXXX,
     //└────────┴────────┴────────┼────────┼────────┼────────┼────────┼────────┤                 ├────────┼────────┼────────┼────────┼────────┼────────┴────────┴────────┘
                                    _______, _______, _______, _______, _______,                   _______, _______, _______, _______, _______
     //                           └────────┴────────┴────────┴────────┴────────┘                 └────────┴────────┴────────┴────────┴────────┘
@@ -75,7 +75,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     //├────────┼────────┼────────┼────────┼────────┼────────┤                                                     ├────────┼────────┼────────┼────────┼────────┼────────┤
         XXXXXXX, KC_LALT, KC_LCTL, KC_LGUI, KC_LSFT, _______,                                                       KC_WH_R, KC_MS_L, KC_MS_D, KC_MS_R, KC_WH_L, XXXXXXX,
     //├────────┼────────┼────────┼────────┼────────┼────────┼────────┬────────┐                 ┌────────┬────────┼────────┼────────┼────────┼────────┼────────┼────────┤
-        XXXXXXX, _______, _______, _______, _______, _______,   RESET, _______,                   _______,   RESET, _______, _______, _______, _______, _______, XXXXXXX,
+        XXXXXXX, _______, _______, _______, _______, _______, QK_BOOT, _______,                   _______, QK_BOOT, _______, _______, _______, _______, _______, XXXXXXX,
     //└────────┴────────┴────────┼────────┼────────┼────────┼────────┼────────┤                 ├────────┼────────┼────────┼────────┼────────┼────────┴────────┴────────┘
                                    _______, _______, _______, _______, _______,                   _______, KC_BTN1, KC_BTN3, KC_BTN2, _______
     //                           └────────┴────────┴────────┴────────┴────────┘                 └────────┴────────┴────────┴────────┴────────┘
@@ -87,71 +87,67 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     //├────────┼────────┼────────┼────────┼────────┼────────┤                                                     ├────────┼────────┼────────┼────────┼────────┼────────┤
         XXXXXXX,  KC_F11,   KC_F3,   KC_F2,   KC_F1,  KC_F10,                                                       _______, KC_BRIU, KC_VOLU, KC_MNXT, KC_MPLY, XXXXXXX,
     //├────────┼────────┼────────┼────────┼────────┼────────┼────────┬────────┐                 ┌────────┬────────┼────────┼────────┼────────┼────────┼────────┼────────┤
-        XXXXXXX,  KC_F12,   KC_F9,   KC_F8,   KC_F7, _______,   RESET,K_QWERTY,                 K_COLEMAK,   RESET, _______, KC_BRID, KC_VOLD, KC_MPRV, KC_MUTE, XXXXXXX,
+        XXXXXXX,  KC_F12,   KC_F9,   KC_F8,   KC_F7, _______, QK_BOOT,K_QWERTY,                 K_COLEMAK, QK_BOOT, _______, KC_BRID, KC_VOLD, KC_MPRV, KC_MUTE, XXXXXXX,
     //└────────┴────────┴────────┼────────┼────────┼────────┼────────┼────────┤                 ├────────┼────────┼────────┼────────┼────────┼────────┴────────┴────────┘
                                    _______, _______, _______, _______, _______,                   _______, _______, _______, _______, _______
     //                           └────────┴────────┴────────┴────────┴────────┘                 └────────┴────────┴────────┴────────┴────────┘
     )
 };
-
+// clang-format on
 
 // switching default layer between COLEMAK and QWERTY
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    switch (keycode) {
-        case K_COLEMAK:
-            if (record->event.pressed) {
-                set_single_persistent_default_layer(_COLEMAK);
-                layer_move(_COLEMAK);
-            }
-            return false;
-        case K_QWERTY:
-            if (record->event.pressed) {
-                set_single_persistent_default_layer(_QWERTY);
-                layer_move(_QWERTY);
-            }
-            return false;
+  switch (keycode) {
+  case K_COLEMAK:
+    if (record->event.pressed) {
+      set_single_persistent_default_layer(_COLEMAK);
+      layer_move(_COLEMAK);
     }
-    return true;
+    return false;
+  case K_QWERTY:
+    if (record->event.pressed) {
+      set_single_persistent_default_layer(_QWERTY);
+      layer_move(_QWERTY);
+    }
+    return false;
+  }
+  return true;
 }
-
 
 // RGB light layers
 
-void keyboard_post_init_user(void) {
-    rgblight_layers = MY_LIGHT_LAYERS;
-}
+void keyboard_post_init_user(void) { rgblight_layers = MY_LIGHT_LAYERS; }
 
 layer_state_t default_layer_state_set_user(layer_state_t state) {
-    rgblight_set_layer_state(_COLEMAK, layer_state_cmp(state, _COLEMAK));
-    rgblight_set_layer_state(_QWERTY, layer_state_cmp(state, _QWERTY));
+  rgblight_set_layer_state(_COLEMAK, layer_state_cmp(state, _COLEMAK));
+  rgblight_set_layer_state(_QWERTY, layer_state_cmp(state, _QWERTY));
 
-    return state;
+  return state;
 }
 
 layer_state_t layer_state_set_user(layer_state_t state) {
-    rgblight_set_layer_state(_NUM, layer_state_cmp(state, _NUM));
-    rgblight_set_layer_state(_SYM, layer_state_cmp(state, _SYM));
-    rgblight_set_layer_state(_NAV, layer_state_cmp(state, _NAV));
-    rgblight_set_layer_state(_MOUSE, layer_state_cmp(state, _MOUSE));
-    rgblight_set_layer_state(_MEDIA_FN, layer_state_cmp(state, _MEDIA_FN));
+  rgblight_set_layer_state(_NUM, layer_state_cmp(state, _NUM));
+  rgblight_set_layer_state(_SYM, layer_state_cmp(state, _SYM));
+  rgblight_set_layer_state(_NAV, layer_state_cmp(state, _NAV));
+  rgblight_set_layer_state(_MOUSE, layer_state_cmp(state, _MOUSE));
+  rgblight_set_layer_state(_MEDIA_FN, layer_state_cmp(state, _MEDIA_FN));
 
-    return state;
+  return update_tri_layer_state(state, _SYM, _NAV, _MEDIA_FN);
 }
-
 
 // OLED display manipulation
 
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
-	return OLED_ROTATION_180;
+  return OLED_ROTATION_180;
 }
 
 bool oled_task_user(void) {
-    if (is_keyboard_left()) {
-        render_status();
-    } else {
-        render_animation();
-    };
+  if (is_keyboard_left()) {
+    render_status();
+  } else {
+    render_animation();
+  };
 
-    return false;
+  return false;
 }
