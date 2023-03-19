@@ -11,7 +11,7 @@
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_COLEMAK] = LAYOUT(
     //┌────────┬────────┬────────┬────────┬────────┬────────┐                                                     ┌────────┬────────┬────────┬────────┬────────┬────────┐
-        XXXXXXX,    KC_Q,    KC_W,    KC_F,    KC_P,    KC_B,                                                          KC_J,    KC_L,    KC_U,   KC_Y , KC_SCLN, XXXXXXX,
+        XXXXXXX,TD(Q_ES),    KC_W,    KC_F,    KC_P,    KC_B,                                                          KC_J,    KC_L,    KC_U,   KC_Y , KC_SCLN, XXXXXXX,
     //├────────┼────────┼────────┼────────┼────────┼────────┤                                                     ├────────┼────────┼────────┼────────┼────────┼────────┤
         XXXXXXX, LALT_KA, LCTL_KR, LGUI_KS, LSFT_KT,    KC_G,                                                          KC_M, RSFT_KN, RGUI_KE, RCTL_KI, RALT_KO, XXXXXXX,
     //├────────┼────────┼────────┼────────┼────────┼────────┼────────┬────────┐                 ┌────────┬────────┼────────┼────────┼────────┼────────┼────────┼────────┤
@@ -23,7 +23,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [_QWERTY] = LAYOUT(
     //┌────────┬────────┬────────┬────────┬────────┬────────┐                                                     ┌────────┬────────┬────────┬────────┬────────┬────────┐
-        XXXXXXX,    KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                                                          KC_Y,    KC_U,   KC_I,     KC_O,    KC_P, XXXXXXX,
+        XXXXXXX,TD(Q_ES),    KC_W,    KC_E,    KC_R,    KC_T,                                                          KC_Y,    KC_U,   KC_I,     KC_O,    KC_P, XXXXXXX,
     //├────────┼────────┼────────┼────────┼────────┼────────┤                                                     ├────────┼────────┼────────┼────────┼────────┼────────┤
         XXXXXXX, LALT_KA, LCTL_KS, LGUI_KD, LSFT_KF,    KC_G,                                                          KC_H, RSFT_KJ, RGUI_KK, RCTL_KL, RA_SCLN, XXXXXXX,
     //├────────┼────────┼────────┼────────┼────────┼────────┼────────┬────────┐                 ┌────────┬────────┼────────┼────────┼────────┼────────┼────────┼────────┤
@@ -94,6 +94,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     )
 };
 // clang-format on
+
+uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
+  switch (keycode) {
+  case TD(Q_ES):
+    return TAPPING_TERM + 150;
+  default:
+    return TAPPING_TERM;
+  }
+}
 
 // switching default layer between COLEMAK and QWERTY
 
